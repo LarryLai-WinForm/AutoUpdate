@@ -31,7 +31,7 @@ namespace AutoUpdate.Form
 
                 case AutoUpdateClass.Result.Fail:
                 default:
-                    MessageBox.Show("Automatic update failed, please contact the program developer");
+                    MessageBox.Show(this,"Automatic update failed, please contact the program developer");
                     button_Close.Enabled = true;
                     return;
             }
