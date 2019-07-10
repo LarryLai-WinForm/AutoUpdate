@@ -393,7 +393,7 @@ namespace AutoUpdate
                 #region Extract new file
 
                 MsgAppend = "Extract new file......";
-                zf.ExtractAll(Application.StartupPath);
+                zf.ExtractAll(Application.StartupPath,ExtractExistingFileAction.OverwriteSilently);
                 MsgAppend = "Extract new file compelete!";
 
                 #endregion
