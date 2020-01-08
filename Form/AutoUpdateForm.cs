@@ -12,7 +12,6 @@ namespace AutoUpdate.Form
             new AutoUpdateForm_T().ShowDialog();
         }
         protected abstract AutoUpdateClass.Info Info { get; }
-        protected virtual AutoUpdateClass.Info.Directory_Info Directory_Info { get; }
 
         private void msgAdd(string msg)
         {
@@ -95,7 +94,10 @@ namespace AutoUpdate.Form
                         Password = "password"
                     },
 
-                    directory_Info = new AutoUpdateClass.Info.Directory_Info()
+                    FtpPath = "dir/",
+
+                    directory_Info = 
+                    new AutoUpdateClass.Info.Directory_Info()
                     {
                         Directories = new Dictionary<string, AutoUpdateClass.Info.Directory_Info>()
                         {

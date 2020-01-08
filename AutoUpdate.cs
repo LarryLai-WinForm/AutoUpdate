@@ -11,8 +11,6 @@ using Ionic.Zip;
 
 namespace AutoUpdate
 {
-    using static WinAPI;
-
     /// <summary>
     /// AutoUpdate
     /// </summary>
@@ -23,6 +21,8 @@ namespace AutoUpdate
         /// The download directory is the same as the AssemblyName
         /// </summary>
         public static string AssemblyName = Assembly.GetEntryAssembly().GetName().Name;
+
+        string FullPath => info.FtpPath + AssemblyName;
 
         /// <summary>
         /// for old file suffix
@@ -133,6 +133,8 @@ namespace AutoUpdate
             }
             public FtpInfo ftpInfo;
 
+            public string FtpPath = string.Empty;
+
             public class Directory_Info
             {
                 public Dictionary<string, Directory_Info> Directories = new Dictionary<string, Directory_Info>();
@@ -147,7 +149,7 @@ namespace AutoUpdate
 
                     foreach (var f in Files)
                     {
-                        MoveFileEx(f, f + ext_OLD, MoveFileFlags.MOVEFILE_0x01_REPLACE_EXISTING);
+                        WinAPI.MoveFileEx(f, f + ext_OLD, WinAPI.MoveFileFlags.MOVEFILE_0x01_REPLACE_EXISTING);
                     }
                 }
 
@@ -238,10 +240,10 @@ namespace AutoUpdate
             try
             {
 
-                MsgAppend = "get FTP files......";
+                MsgAppend = "get " + FullPath + " files......";
                 List<string> list = new List<string>();
-                //Set the assembly name to the remote directory name
-                list = ftp.ListDirectory(AssemblyName);
+                //Set the path and assembly name to the remote directory name
+                list = ftp.ListDirectory(FullPath);
 
                 if (list.Count <= 0)
                 {
@@ -272,7 +274,7 @@ namespace AutoUpdate
 
             const string ext_ZIP = ".zip";
             Version UpdateVer = new Version();
-            string fileName;
+            string ZipFileName;
             try
             {
                 string[] strArray = ListDirectoryFirstFile.Split(slash.ToCharArray());
@@ -283,20 +285,22 @@ namespace AutoUpdate
                     result(Result.Fail);
                     return;
                 }
-                fileName = strArray[1];
-                string ver = fileName;
+                ZipFileName = strArray[1];
+                string verCheck = ZipFileName;
 
-                if (ver.EndsWith(ext_ZIP))
+                //remove .zip
+                if (verCheck.EndsWith(ext_ZIP))
                 {
-                    ver = ver.Substring(0, ver.Length - ext_ZIP.Length);
+                    verCheck = verCheck.Substring(0, verCheck.Length - ext_ZIP.Length);
                 }
 
-                if (ver.StartsWith(AssemblyName))
+                //remove AssemblyName
+                if (verCheck.StartsWith(AssemblyName))
                 {
-                    ver = ver.Substring(AssemblyName.Length);
+                    verCheck = verCheck.Substring(AssemblyName.Length);
                 }
                 
-                UpdateVer = new Version(ver);
+                UpdateVer = new Version(verCheck);
 
                 MsgAppend = "newest version : " + UpdateVer.ToString();
 
@@ -327,7 +331,7 @@ namespace AutoUpdate
             int fileSize;
             try
             {
-                fileSize = (int)ftp.GetFileSize(AssemblyName + slash + fileName);
+                fileSize = (int)ftp.GetFileSize(FullPath + slash + ZipFileName);
 
                 MsgAppend = "get new file size : " + fileSize.ToString() + "bytes";
             }
@@ -347,8 +351,8 @@ namespace AutoUpdate
             try
             {
                 MsgAppend = "download update file......";
-                ftp.DownloadFile(AssemblyName + slash + fileName, fileSize, fileName);
-                MsgAppend = "download update file sucees!";
+                ftp.DownloadFile(FullPath + slash + ZipFileName, fileSize, ZipFileName);
+                MsgAppend = "download update file success!";
             }
             catch (Exception ex)
             {
@@ -361,14 +365,12 @@ namespace AutoUpdate
 
             #endregion
 
-            /// <para>
             /// You must first create a ZIP object before moving the old file. 
             /// Otherwise, the problem of not finding the DLL will occur when the file is moving.
-            /// </para>
-            /// <para>
+            /// 先把ZIP物件NEW起來，否則檔案更名後會有找不到Ionic.Zip.dll的問題
             /// Parameter System.Text.Encoding.Default to avoid Chinese garbled
-            /// </para>
-            using (ZipFile zf = new ZipFile(fileName,System.Text.Encoding.Default))
+            /// 參數System.Text.Encoding.Default避免中文亂碼
+            using (ZipFile zf = new ZipFile(ZipFileName, System.Text.Encoding.Default))
             {
 
                 #region move old files
@@ -401,7 +403,7 @@ namespace AutoUpdate
             }
 
             /// delete zip file
-            File.Delete(fileName);
+            File.Delete(ZipFileName);
 
             result(Result.Success);
             MsgAppend = "The update is successful! The program will restart automatically late!";
@@ -458,11 +460,18 @@ namespace AutoUpdate
             }
         }
 
-        public List<string> ListDirectory(string DirectoryPath = "")
+        void FinishFtpWebRequest(FtpWebRequest ftpWebRequest)
+        {
+            //不確定效用
+            //ftpWebRequest.KeepAlive = false;
+            //ftpWebRequest.Abort();
+        }
+
+        public List<string> ListDirectory(string Path = "")
         {
             List<string> strList = new List<string>();
 
-            FtpWebRequest ftpWebRequest = (FtpWebRequest)WebRequest.Create(UrlString + DirectoryPath);
+            FtpWebRequest ftpWebRequest = (FtpWebRequest)WebRequest.Create(UrlString + Path);
             ftpWebRequest.KeepAlive = false;
             try
             {
@@ -488,16 +497,15 @@ namespace AutoUpdate
             }
             finally
             {
-                //ftpWebRequest.Abort();
-                //ftpWebRequest.KeepAlive = false;
+                FinishFtpWebRequest(ftpWebRequest);
             }
 
             return strList;
         }
 
-        public long GetFileSize(string filePath)
+        public long GetFileSize(string Path)
         {
-            FtpWebRequest ftpWebRequest = (FtpWebRequest)WebRequest.Create(UrlString + filePath);
+            FtpWebRequest ftpWebRequest = (FtpWebRequest)WebRequest.Create(UrlString + Path);
             ftpWebRequest.KeepAlive = false;
             try
             {
@@ -511,8 +519,7 @@ namespace AutoUpdate
             }
             finally
             {
-                //ftpWebRequest.KeepAlive = false;
-                //ftpWebRequest.Abort();
+                FinishFtpWebRequest(ftpWebRequest);
             }
         }
 
@@ -549,8 +556,7 @@ namespace AutoUpdate
             }
             finally
             {
-                //ftpWebRequest.KeepAlive = false;
-                //ftpWebRequest.Abort();
+                FinishFtpWebRequest(ftpWebRequest);
             }
         }
     }
