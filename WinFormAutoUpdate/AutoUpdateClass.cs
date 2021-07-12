@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 
 using Ionic.Zip;
 
-namespace AutoUpdate
+namespace WinFormAutoUpdate
 {
     /// <summary>
     /// AutoUpdate

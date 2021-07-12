@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace AutoUpdate.Form
+namespace WinFormAutoUpdate.Form
 {
 
     abstract public partial class AutoUpdateForm : System.Windows.Forms.Form

@@ -7,8 +7,8 @@
     <ProjectGuid>{BCC7AD0D-2052-4FA7-BB11-35E91036A256}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AutoUpdate</RootNamespace>
-    <AssemblyName>AutoUpdate</AssemblyName>
+    <RootNamespace>WinFormAutoUpdate</RootNamespace>
+    <AssemblyName>WinFormAutoUpdate</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoUpdate.cs" />
+    <Compile Include="AutoUpdateClass.cs" />
     <Compile Include="Form\AutoUpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>

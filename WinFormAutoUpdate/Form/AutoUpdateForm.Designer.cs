@@ -1,4 +1,4 @@
-﻿namespace AutoUpdate.Form
+﻿namespace WinFormAutoUpdate.Form
 {
     partial class AutoUpdateForm
     {
