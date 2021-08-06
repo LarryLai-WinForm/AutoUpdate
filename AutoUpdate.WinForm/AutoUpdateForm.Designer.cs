@@ -1,4 +1,4 @@
-﻿namespace WinFormAutoUpdate.Form
+﻿namespace AutoUpdate.WinForm
 {
     partial class AutoUpdateForm
     {
@@ -47,7 +47,7 @@
             this.textBox_MSG.Size = new System.Drawing.Size(575, 218);
             this.textBox_MSG.TabIndex = 0;
             this.textBox_MSG.TabStop = false;
-            this.textBox_MSG.TextChanged += new System.EventHandler(this.textBox_MSG_TextChanged);
+            this.textBox_MSG.TextChanged += new System.EventHandler(this.TextBox_MSG_TextChanged);
             // 
             // button_Close
             // 
@@ -60,14 +60,14 @@
             this.button_Close.TabIndex = 1;
             this.button_Close.Text = "Close";
             this.button_Close.UseVisualStyleBackColor = false;
-            this.button_Close.Click += new System.EventHandler(this.button_Close_Click);
+            this.button_Close.Click += new System.EventHandler(this.Button_Close_Click);
             // 
             // backgroundWorker_Update
             // 
             this.backgroundWorker_Update.WorkerReportsProgress = true;
             this.backgroundWorker_Update.WorkerSupportsCancellation = true;
-            this.backgroundWorker_Update.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_Update_DoWork);
-            this.backgroundWorker_Update.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker_Update_ProgressChanged);
+            this.backgroundWorker_Update.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_Update_DoWork);
+            this.backgroundWorker_Update.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker_Update_ProgressChanged);
             // 
             // AutoUpdateForm
             // 
