@@ -1,7 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using System.Collections.Generic;
-using System;
 
 namespace AutoUpdate.modules
 {
@@ -13,12 +13,12 @@ namespace AutoUpdate.modules
         public string Path { set; get; }
 
         NetworkCredential Network_Credential => new NetworkCredential(UserName, Password);
-        FtpWebRequest FtpWebRequest_Init(string RequestPath)
+        FtpWebRequest FtpWebRequest_Init(string RequestPath,bool KeepAlive = false)
         {
             FtpWebRequest result;
 
             result = (FtpWebRequest)WebRequest.Create(Url + RequestPath);
-            result.KeepAlive = false;
+            result.KeepAlive = KeepAlive;
             result.Credentials = Network_Credential;
 
             return result;
@@ -38,6 +38,15 @@ namespace AutoUpdate.modules
                 ftpWebRequest = FtpWebRequest_Init(Path);
 
                 ftpWebRequest.Method = WebRequestMethods.Ftp.ListDirectory;
+
+                ///這裡KeepAlive設為true後送出屬性"UseBinary = true"效用才會持續，
+                ///此修改為了防止後面GetFileSize因"UseBinary = true"未能生效發生錯誤。
+                ///因GetFileSize命令本身不會使"UseBinary = true"生效，不知是為BUG或設計問題
+                ///而某些站台需"UseBinary = true"才能執行GetFileSize。
+                ///上述原因參考自下列網頁：
+                ///https://social.msdn.microsoft.com/Forums/en-US/0c38814e-d8e3-49f3-8818-b5306cc100ce/ftpwebrequestusebinary-does-not-work?forum=netfxnetcom
+                ftpWebRequest.KeepAlive = true;
+
                 using (WebResponse webResponse = ftpWebRequest.GetResponse())
                 {
                     using (Stream s = webResponse.GetResponseStream())
