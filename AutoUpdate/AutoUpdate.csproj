@@ -33,7 +33,58 @@
     <None Update="AutoUpdate.Directory_Info_Data\AutoUpdate.Directory_Info_Data.runtimeconfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="AutoUpdate.Directory_Info_Data\DotNetZip.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\Microsoft.Win32.SystemEvents.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="AutoUpdate.Directory_Info_Data\Newtonsoft.Json.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\runtimes\unix\lib\netcoreapp2.1\System.Security.Principal.Windows.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\runtimes\win\lib\netcoreapp2.0\System.Security.AccessControl.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\System.Drawing.Common.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\System.Runtime.CompilerServices.Unsafe.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\System.Security.AccessControl.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\System.Security.Permissions.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\System.Security.Principal.Windows.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\System.Text.Encoding.CodePages.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="AutoUpdate.Directory_Info_Data\System.Windows.Extensions.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TargetFileName">
