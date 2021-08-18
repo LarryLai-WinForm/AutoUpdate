@@ -52,10 +52,10 @@ namespace AutoUpdate.modules
         /// </summary>
         public void RenameToOldFile(string dir = "")
         {
-            foreach (var d in Directories.Keys)
+            foreach (var sub_dir in Directories.Keys)
             {
-                var directory = Directories[d];
-                directory.RenameToOldFile(d + "\\");
+                var directory = Directories[sub_dir];
+                directory.RenameToOldFile(dir + sub_dir + "\\");
             }
 
             foreach (var f in Files)
